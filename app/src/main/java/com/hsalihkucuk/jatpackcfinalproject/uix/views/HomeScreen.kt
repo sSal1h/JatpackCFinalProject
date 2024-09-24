@@ -45,16 +45,13 @@ fun HomeScreen(navController: NavController, homeScreenViewModel: HomeScreenView
 
 @Composable
 fun FoodItemCard(navController: NavController, food: Foods) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .clickable {
+    Card(modifier = Modifier.padding(8.dp).clickable {
                 val foodJson = Gson().toJson(food)
                 navController.navigate("FoodDetail/$foodJson")
             }
     ) {
         Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            var url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.yemek_resim_adi}"
+            val url = "http://kasimadalan.pe.hu/yemekler/resimler/${food.yemek_resim_adi}"
             GlideImage(imageModel = url, modifier = Modifier.size(100.dp, 100.dp))
             Text(text = food.yemek_adi, style = MaterialTheme.typography.titleMedium)
 

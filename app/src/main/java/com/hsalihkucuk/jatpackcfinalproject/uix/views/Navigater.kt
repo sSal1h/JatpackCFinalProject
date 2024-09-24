@@ -27,11 +27,7 @@ fun Navigater(selectedPage: String, homeScreenViewModel: HomeScreenViewModel, fo
         }
         composable("CartScreen"){ CartScreen(navControler, cartScreenViewModel) }
         composable("SearchScreen"){ SearchScreen(navController = navControler, searchScreenViewModel = searchScreenViewModel) }
-
         composable("AccountPage"){
-
-        }
-        composable("OffersPage"){
 
         }
     }

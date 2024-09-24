@@ -45,28 +45,36 @@ fun BottomNavBar(
     searchScreenViewModel: SearchScreenViewModel
 ){
     val selectedPage = remember { mutableStateOf(0) }
-    Scaffold(topBar = { CenterAlignedTopAppBar(title = { Text(text = stringResource(id = R.string.app_name), color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarColors(containerColor = PrimaryColor, titleContentColor = SecondaryColor, actionIconContentColor = Color.White, scrolledContainerColor = Color.Transparent, navigationIconContentColor = Color.Transparent),
-        actions = { IconButton(onClick = {
-            selectedPage.value = 3
-        }, content = {Icon(painter = painterResource(id = R.drawable.cart_icon),contentDescription = "Cart Icon")})  }) },
+
+    Scaffold(topBar = { CenterAlignedTopAppBar(title = { Text(text = stringResource(id = R.string.app_name), color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) },
+        navigationIcon =  {
+            if (selectedPage.value != 0) {
+                IconButton(onClick = {
+                    selectedPage.value = 0
+                }) { Icon(painter = painterResource(id = R.drawable.back_icon), contentDescription = "Close", tint = Color.White)}
+            }
+        }, colors = TopAppBarColors(containerColor = PrimaryColor, titleContentColor = SecondaryColor, actionIconContentColor = Color.White, scrolledContainerColor = Color.Transparent, navigationIconContentColor = Color.Transparent),
+            actions = { IconButton(onClick = {
+                selectedPage.value = 3
+            }, content = {Icon(painter = painterResource(id = R.drawable.cart_icon), contentDescription = "Cart Icon")})  }) },
         bottomBar = { BottomAppBar(modifier = Modifier.height(65.dp), containerColor = PrimaryColor, contentColor = Color.White, content = {
-        NavigationBarItem(
-            selected = selectedPage.value == 0,
-            onClick = { selectedPage.value = 0 },
-            icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.home_icon), contentDescription = "Home Icon") },
-            colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
-        NavigationBarItem(
-            selected = selectedPage.value == 1,
-            onClick = { selectedPage.value = 1 },
-            icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.search_icon), contentDescription = "Search Icon") },
-            colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
-        NavigationBarItem(
-            selected = selectedPage.value == 2,
-            onClick = { selectedPage.value = 2 },
-            icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.account_icon), contentDescription = "Account Icon") },
-            colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
-    })
-    }) { paddingValues ->
+            NavigationBarItem(
+                selected = selectedPage.value == 0,
+                onClick = { selectedPage.value = 0 },
+                icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.home_icon), contentDescription = "Home Icon") },
+                colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
+            NavigationBarItem(
+                selected = selectedPage.value == 1,
+                onClick = { selectedPage.value = 1 },
+                icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.search_icon), contentDescription = "Search Icon") },
+                colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
+            NavigationBarItem(
+                selected = selectedPage.value == 2,
+                onClick = { selectedPage.value = 2 },
+                icon = { Icon(modifier = Modifier.size(33.dp), painter = painterResource(id = R.drawable.account_icon), contentDescription = "Account Icon") },
+                colors = NavigationBarItemDefaults.colors(selectedIconColor = DarkPrimaryColor, unselectedIconColor = Color.White))
+        })}
+    ) { paddingValues ->
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues), verticalArrangement = Arrangement.SpaceEvenly, horizontalAlignment = Alignment.CenterHorizontally) {

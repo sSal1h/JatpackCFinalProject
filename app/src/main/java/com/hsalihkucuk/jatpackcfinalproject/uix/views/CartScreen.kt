@@ -56,13 +56,15 @@ fun CartScreen(navController: NavController, cartScreenViewModel: CartScreenView
             .fillMaxSize()
             .padding(15.dp, 0.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
-                Text(text = "Toplam tutar :", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+                Text(text = "Toplam Tutar :", style = MaterialTheme.typography.titleLarge, color = Color.Black)
                 Text(text = "${cartValue.value} ₺", style = MaterialTheme.typography.titleLarge, color = Color.Black)
             }
-            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+            if (cartState.value){
+                Button(modifier = Modifier.fillMaxWidth(), onClick = {
 
-            }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)) {
-                Text(text = "Sepeti Onayla", style = MaterialTheme.typography.titleMedium)
+                }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)) {
+                    Text(text = "Sepeti Onayla", style = MaterialTheme.typography.titleMedium)
+                }
             }
         }
 
