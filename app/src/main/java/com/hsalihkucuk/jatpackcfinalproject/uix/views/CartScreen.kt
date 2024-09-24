@@ -9,16 +9,17 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -35,6 +36,7 @@ import androidx.navigation.NavController
 import com.hsalihkucuk.jatpackcfinalproject.R
 import com.hsalihkucuk.jatpackcfinalproject.data.entity.Cart
 import com.hsalihkucuk.jatpackcfinalproject.ui.theme.Color5
+import com.hsalihkucuk.jatpackcfinalproject.ui.theme.Color6
 import com.hsalihkucuk.jatpackcfinalproject.ui.theme.PrimaryColor
 import com.hsalihkucuk.jatpackcfinalproject.uix.viewmodel.CartScreenViewModel
 import com.skydoves.landscapist.glide.GlideImage
@@ -47,32 +49,47 @@ fun CartScreen(navController: NavController, cartScreenViewModel: CartScreenView
     LaunchedEffect(key1 = true) {
         cartScreenViewModel.getCart("hSalih")
     }
-
-    Column(modifier = Modifier
+    Scaffold(bottomBar = { BottomAppBar(containerColor = Color6, contentColor = Color.White) {
+        Column(modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        if (cartState.value){
-            LazyColumn {
-                items(count = cartList.value.count(), itemContent = {
-                    val cartItem = cartList.value[it]
-                    CartItemRow(cartScreenViewModel, cartItem)
-                })
+            .padding(15.dp, 0.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(text = "Toplam tutar :", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+                Text(text = "${cartList.value.sumOf { it.yemek_fiyat * it.yemek_siparis_adet }} ₺", style = MaterialTheme.typography.titleLarge, color = Color.Black)
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(text = "Toplam Tutar: ${cartList.value.sumOf { it.yemek_fiyat * it.yemek_siparis_adet }} ₺", style = MaterialTheme.typography.titleLarge)
+            Button(modifier = Modifier.fillMaxWidth(), onClick = {
+
+            }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)) {
+                Text(text = "Sepeti Onayla", style = MaterialTheme.typography.titleMedium)
+            }
         }
-        else {
-            Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Sepetiniz Boş!", style = MaterialTheme.typography.titleLarge)
-                Button(onClick = {
-                    navController.navigate("HomeScreen")
-                }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)) {
-                    Text(text = "Alışverişe Başla")
+
+    }}) {paddingValues ->
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+        ) {
+            if (cartState.value){
+                LazyColumn {
+                    items(count = cartList.value.count(), itemContent = {
+                        val cartItem = cartList.value[it]
+                        CartItemRow(cartScreenViewModel, cartItem)
+                    })
+                }
+            }
+            else {
+                Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(text = "Sepetiniz Boş!", style = MaterialTheme.typography.titleLarge)
+                    Button(onClick = {
+                        navController.navigate("HomeScreen")
+                    }, colors = ButtonDefaults.buttonColors(containerColor = PrimaryColor)) {
+                        Text(text = "Alışverişe Başla")
+                    }
                 }
             }
         }
     }
+
 }
 
 @Composable
@@ -86,8 +103,8 @@ fun CartItemRow(cartScreenViewModel: CartScreenViewModel, cartItem: Cart) {
         .background(color = Color5)
     ) {
         Row(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
+            .fillMaxWidth()
+            .padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
         ) {
             val url = "http://kasimadalan.pe.hu/yemekler/resimler/${cartItem.yemek_resim_adi}"
             GlideImage(imageModel = url, modifier = Modifier.size(80.dp, 80.dp))

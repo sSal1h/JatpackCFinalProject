@@ -48,7 +48,7 @@ fun BottomNavBar(
     Scaffold(topBar = { CenterAlignedTopAppBar(title = { Text(text = stringResource(id = R.string.app_name), color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold) }, colors = TopAppBarColors(containerColor = PrimaryColor, titleContentColor = SecondaryColor, actionIconContentColor = Color.White, scrolledContainerColor = Color.Transparent, navigationIconContentColor = Color.Transparent),
         actions = { IconButton(onClick = {
             selectedPage.value = 3
-        },content = {Icon(painter = painterResource(id = R.drawable.cart_icon),contentDescription = "Cart Icon")})  }) },
+        }, content = {Icon(painter = painterResource(id = R.drawable.cart_icon),contentDescription = "Cart Icon")})  }) },
         bottomBar = { BottomAppBar(modifier = Modifier.height(65.dp), containerColor = PrimaryColor, contentColor = Color.White, content = {
         NavigationBarItem(
             selected = selectedPage.value == 0,
