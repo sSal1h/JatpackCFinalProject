@@ -2,10 +2,14 @@ package com.hsalihkucuk.jatpackcfinalproject.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+//My Colors
+val DarkPrimaryColor = Color(0xFF006769)
+val DarkSecondaryColor = Color(0xFF9DDE8B)
+val PrimaryColor = Color(0xFF40A578)
+val SecondaryColor = Color(0xFFE6FF94)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val Color1 = Color(0xFF05668D)
+val Color2 = Color(0xFF028090)
+val Color3 = Color(0xFF00A896)
+val Color4 = Color(0xFF02C39A)
+val Color5 = Color(0xFFD0F8BB)

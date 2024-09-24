@@ -36,6 +36,25 @@ class CartScreenViewModel @Inject constructor(var cartRepository: CartRepository
     fun deleteFromCart(sepetYemekId : Int, kullaniciAdi : String){
         CoroutineScope(Dispatchers.Main).launch {
             cartRepository.deleteFromCart(sepetYemekId, kullaniciAdi)
+            getCart("hSalih")
+        }
+    }
+
+    fun addToCart(yemekAdi : String, yemekResimAdi : String, yemekFiyat : Int, yemekSiparisAdet : Int, kullaniciAdi : String){
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val cartList = cartRepository.getCart(kullaniciAdi)
+                for (cart in cartList){
+                    if (cart.yemek_adi == yemekAdi){
+                        cartRepository.addToCart(yemekAdi, yemekResimAdi, yemekFiyat, yemekSiparisAdet, kullaniciAdi)
+                        cartRepository.deleteFromCart(cart.sepet_yemek_id, kullaniciAdi)
+                        getCart("hSalih")
+                    }
+                }
+            }
+            catch (e : Exception){
+                Log.e("FoodDetailVM", e.localizedMessage!!)
+            }
         }
     }
 }

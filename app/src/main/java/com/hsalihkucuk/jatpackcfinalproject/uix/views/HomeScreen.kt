@@ -33,7 +33,9 @@ fun HomeScreen(navController: NavController, homeScreenViewModel: HomeScreenView
         homeScreenViewModel.getAllFoods()
     }
 
-    LazyVerticalGrid(columns = GridCells.Fixed(count = 2), modifier = Modifier.fillMaxSize()) {
+    LazyVerticalGrid(columns = GridCells.Fixed(count = 2), modifier = Modifier
+        .fillMaxSize()
+        .padding(15.dp)) {
         items(count = foodList.value.count(), itemContent = {
             val food = foodList.value[it]
             FoodItemCard(navController, food)

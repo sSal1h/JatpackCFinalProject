@@ -11,9 +11,10 @@ import com.hsalihkucuk.jatpackcfinalproject.data.entity.Foods
 import com.hsalihkucuk.jatpackcfinalproject.uix.viewmodel.CartScreenViewModel
 import com.hsalihkucuk.jatpackcfinalproject.uix.viewmodel.FoodDetailViewModel
 import com.hsalihkucuk.jatpackcfinalproject.uix.viewmodel.HomeScreenViewModel
+import com.hsalihkucuk.jatpackcfinalproject.uix.viewmodel.SearchScreenViewModel
 
 @Composable
-fun Navigater(selectedPage: String, homeScreenViewModel: HomeScreenViewModel, foodDetailViewModel: FoodDetailViewModel, cartScreenViewModel: CartScreenViewModel){
+fun Navigater(selectedPage: String, homeScreenViewModel: HomeScreenViewModel, foodDetailViewModel: FoodDetailViewModel, cartScreenViewModel: CartScreenViewModel, searchScreenViewModel: SearchScreenViewModel){
     val navControler = rememberNavController()
 
     NavHost(navController = navControler, startDestination = selectedPage){
@@ -25,10 +26,8 @@ fun Navigater(selectedPage: String, homeScreenViewModel: HomeScreenViewModel, fo
             FoodDetailPage(navControler, foodNesne, foodDetailViewModel)
         }
         composable("CartScreen"){ CartScreen(navControler, cartScreenViewModel) }
+        composable("SearchScreen"){ SearchScreen(navController = navControler, searchScreenViewModel = searchScreenViewModel) }
 
-        composable("SearchScreen"){
-
-        }
         composable("AccountPage"){
 
         }
