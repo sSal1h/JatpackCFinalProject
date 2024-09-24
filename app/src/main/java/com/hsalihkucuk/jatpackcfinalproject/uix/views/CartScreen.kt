@@ -45,17 +45,19 @@ import com.skydoves.landscapist.glide.GlideImage
 fun CartScreen(navController: NavController, cartScreenViewModel: CartScreenViewModel){
     val cartList = cartScreenViewModel.cartList.observeAsState(listOf())
     val cartState = cartScreenViewModel.cartState.observeAsState(true)
+    val cartValue = remember { mutableStateOf(0) }
 
     LaunchedEffect(key1 = true) {
         cartScreenViewModel.getCart("hSalih")
     }
+
     Scaffold(bottomBar = { BottomAppBar(containerColor = Color6, contentColor = Color.White) {
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(15.dp, 0.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "Toplam tutar :", style = MaterialTheme.typography.titleLarge, color = Color.Black)
-                Text(text = "${cartList.value.sumOf { it.yemek_fiyat * it.yemek_siparis_adet }} ₺", style = MaterialTheme.typography.titleLarge, color = Color.Black)
+                Text(text = "${cartValue.value} ₺", style = MaterialTheme.typography.titleLarge, color = Color.Black)
             }
             Button(modifier = Modifier.fillMaxWidth(), onClick = {
 
@@ -73,12 +75,15 @@ fun CartScreen(navController: NavController, cartScreenViewModel: CartScreenView
                 LazyColumn {
                     items(count = cartList.value.count(), itemContent = {
                         val cartItem = cartList.value[it]
+                        cartValue.value = cartList.value.sumOf { it.yemek_fiyat * it.yemek_siparis_adet }
                         CartItemRow(cartScreenViewModel, cartItem)
                     })
                 }
             }
             else {
                 Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+                    cartValue.value = 0
+                    
                     Text(text = "Sepetiniz Boş!", style = MaterialTheme.typography.titleLarge)
                     Button(onClick = {
                         navController.navigate("HomeScreen")
